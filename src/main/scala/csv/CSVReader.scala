@@ -24,6 +24,6 @@ object CSVreader extends App{
 		// Divides each CSV column into a padded row.
 		// Same thing as this:
 		// println(values(0) + ", " + values(1) + ", " + values(2))
-		// ^You can uncomment that line and it'll print the same shit without formatting(and with commas)
+		// ^You can uncomment that line and it'll print the same thing without formatting(and with commas)
 	}
 }
