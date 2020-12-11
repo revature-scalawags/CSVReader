@@ -1,4 +1,4 @@
-package csv
+package csvreader
 
 import scala.collection.mutable.Map
 import scala.concurrent.Future
