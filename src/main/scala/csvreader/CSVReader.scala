@@ -20,9 +20,16 @@ object CSVReader extends App {
         m(state) = 1
       }
     }
+    val t0 = System.nanoTime()
     m.foreach(println)
+    val t1 = System.nanoTime()
 
+    val t2 = System.nanoTime()
     val future = Future {
       m.foreach(println)
     } 
+    val t3 = System.nanoTime()
+
+    println(s"Elapsed time w/o threading:  ${t1 - t0}ns")
+    println(s"Elapsed time with threading: ${t3 - t2}ns")
 }
