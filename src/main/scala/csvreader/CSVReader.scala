@@ -9,20 +9,26 @@ import scala.util.{Failure, Success}
   * 
   * 
   */
-object CSVReader extends App {
+object CSVReader extends App 
+{
     val file = io.Source.fromFile("people.csv") 
     var m = Map[String, Int]()
-    for (line <- file.getLines) {
+    for (line <- file.getLines) 
+    {
       var state = line.split(",")(2)
-      if (m.contains(state)) {
+      if (m.contains(state)) 
+      {
         m(state) += 1
-      } else {
+      } 
+      else 
+      {
         m(state) = 1
       }
     }
     m.foreach(println)
 
-    val future = Future {
+    val future = Future 
+    {
       m.foreach(println)
     } 
 }
