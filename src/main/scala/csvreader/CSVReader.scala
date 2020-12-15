@@ -5,6 +5,9 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
+import org.mongodb.scala.MongoClient
+import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
+
 /** CSVReader
   * 
   * 
@@ -25,4 +28,10 @@ object CSVReader extends App {
     val future = Future {
       m.foreach(println)
     } 
+
+    // val client = MongoClient()
+    // val codecRegistry = fromRegistries(fromProviders(classOf[States]), MongoClient.DEFAULT_CODEC_REGISTRY)
+    // val db = client.getDatabase("mydb").withCodecRegistry(codecRegistry)
+
+    // val statesdao = db.getCollection("counts").find()
 }
