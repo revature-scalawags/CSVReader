@@ -8,7 +8,11 @@ A simple project to extract data from a CSV file for analytics
 >sbt test
 
 ## Run
->stb --error run
+Run with default data source file:
+>sbt --error run
+
+Run with custom data source file:
+>sbt --error "run [sourceFilePath]"
 
 # Requirements
 - [ ] Written in Scala/SBT
