@@ -1,19 +1,25 @@
 package csvreader
 
 import scala.collection.mutable.Map
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
 import org.mongodb.scala.MongoClient
-import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
+import org.bson.codecs.configuration.CodecRegistries.{
+  fromProviders,
+  fromRegistries
+}
+import com.mongodb.BasicDBObject
+import java.util.concurrent.TimeUnit
 
 /** CSVReader
-  * 
-  * 
   */
 object CSVReader extends App {
-    val file = io.Source.fromFile("people.csv") 
+  if (args.length > 0) {
+    val file = io.Source.fromFile("people.csv")
     var m = Map[String, Int]()
     for (line <- file.getLines) {
       var state = line.split(",")(2)
@@ -23,15 +29,14 @@ object CSVReader extends App {
         m(state) = 1
       }
     }
-    m.foreach(println)
 
     val future = Future {
       m.foreach(println)
-    } 
+    }
+  }
 
-    // val client = MongoClient()
-    // val codecRegistry = fromRegistries(fromProviders(classOf[States]), MongoClient.DEFAULT_CODEC_REGISTRY)
-    // val db = client.getDatabase("mydb").withCodecRegistry(codecRegistry)
-
-    // val statesdao = db.getCollection("counts").find()
+  val client = MongoClient()
+  val db = client.getDatabase("testdb")
+  val res = db.getCollection("states").find().first().head()
+  Await.result(res, Duration(10, TimeUnit.SECONDS)).foreach(println)
 }
