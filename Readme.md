@@ -1,6 +1,13 @@
 # CSVReader
 A simple project to extract data from a CSV file for analytics
 
+## Prepare MongoDB
+Build a new docker image
+>docker build -t mongotestdb .
+
+Run the image
+>docker run -p 27017:27017 -d --name mongotestdb --rm mongotestdb
+
 ## Compile
 >sbt compile
 

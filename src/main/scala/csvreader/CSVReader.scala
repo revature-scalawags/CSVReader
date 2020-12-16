@@ -14,6 +14,7 @@ import org.bson.codecs.configuration.CodecRegistries.{
 }
 import com.mongodb.BasicDBObject
 import java.util.concurrent.TimeUnit
+import org.mongodb.scala.bson.collection.immutable.Document
 
 /** CSVReader
   */
@@ -37,6 +38,11 @@ object CSVReader extends App {
 
   val client = MongoClient()
   val db = client.getDatabase("testdb")
-  val res = db.getCollection("states").find().first().head()
+
+  val doc: Document = Document("_id" -> 0, "name" -> "MongoDB", "age" -> "13", "state" -> "Texas")
+  Await.result(db.getCollection("states").insertOne(doc).head(), Duration(10, TimeUnit.SECONDS))
+  
+  val res = db.getCollection("states").find().head()
   Await.result(res, Duration(10, TimeUnit.SECONDS)).foreach(println)
+
 }
